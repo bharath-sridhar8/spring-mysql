@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,6 +42,11 @@ public class UserController {
             return sb.toString();
         }
         return userService.createUser(userForm.getName(), userForm.getEmail());
+    }
+
+    @PostMapping(path = "/upload")
+    public int uploadUsers(@RequestParam MultipartFile multipartFile) {
+        return userService.uploadUsers(multipartFile);
     }
 
     @GetMapping
