@@ -1,8 +1,11 @@
 package com.example.accessingdatamysql;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,20 @@ public class UserController {
     @PostMapping
     public String addUser(@RequestParam String name, @RequestParam String email) {
         return userService.createUser(name, email);
+    }
+
+    @PostMapping(path = "/addNew")
+    public String addNew(@RequestBody @Valid UserForm userForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            StringBuffer sb = new StringBuffer();
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError error : allErrors) {
+                sb.append("\n");
+                sb.append(error.getDefaultMessage());
+            }
+            return sb.toString();
+        }
+        return userService.createUser(userForm.getName(), userForm.getEmail());
     }
 
     @GetMapping
