@@ -44,9 +44,17 @@ public class UserController {
         return userService.createUser(userForm.getName(), userForm.getEmail());
     }
 
+    // Using @RequestParam per field works.
     @PostMapping(path = "/upload")
-    public int uploadUsers(@RequestParam MultipartFile multipartFile) {
+    public int uploadUsers(@RequestParam MultipartFile multipartFile, @RequestParam String name) {
+        System.out.println(name);
         return userService.uploadUsers(multipartFile);
+    }
+
+    // When submitting a form containing a file, do NOT use @RequestBody annotation.
+    @PostMapping(path = "/uploadForm", consumes = "multipart/form-data")
+    public int upload(UserUploadForm userUploadForm) {
+        return userService.uploadForm(userUploadForm);
     }
 
     @GetMapping
