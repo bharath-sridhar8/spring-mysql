@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 // sql in the root of the classpath is executed on startup if Hibernate creates the schema from scratch
 // (that is, if the ddl-auto property is set to create or create-drop).
@@ -19,6 +20,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 // JPA is relational, meant for relational databases (ORM). Spring Data JPA is parallel to Spring Data MongoDB.
 // spring-boot-starter-data-mongodb was needed. Not just spring-boot-mongodb.
 @SpringBootApplication
+@EnableScheduling
 public class AccessingDataMysqlApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
@@ -30,7 +32,7 @@ public class AccessingDataMysqlApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userMongoRepository.save(new UserMongo("user_1", "user_1@abc.com"));
+//		userMongoRepository.save(new UserMongo("user_1", "user_1@abc.com"));
 		userMongoRepository.save(new UserMongo("user_2", "user_2@abc.com"));
 		userMongoRepository.findAll().stream().forEach(user -> {
 			System.out.println(user);
