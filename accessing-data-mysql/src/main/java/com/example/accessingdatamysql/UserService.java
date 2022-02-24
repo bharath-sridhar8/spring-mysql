@@ -23,9 +23,7 @@ public class UserService {
     }
 
     public String createUser(String name, String email) {
-        User u = new User();
-        u.setEmail(email);
-        u.setName(name);
+        User u = new User(name, email);
         userRepository.save(u);
         return u.getId();
     }

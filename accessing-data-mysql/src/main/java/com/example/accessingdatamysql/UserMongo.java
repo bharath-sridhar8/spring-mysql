@@ -1,16 +1,12 @@
 package com.example.accessingdatamysql;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class User {
+public class UserMongo {
 
-    public User() {
-        
+    public UserMongo() {
+
     }
 
     public String getName() {
@@ -37,16 +33,26 @@ public class User {
         this.id = id;
     }
 
-    public User(String name, String email) {
+    public UserMongo(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @GeneratedValue(generator = "uuid")
+//    @GenericGenerator(name = "uuid", strategy = "uuid")
+//    @GeneratedValue(generator = "uuid")
     @Id
 //    @org.springframework.data.annotation.Id
     private String id;
+
+    @Override
+    public String toString() {
+        return "UserMongo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     private String name;
     private String email;
 }
