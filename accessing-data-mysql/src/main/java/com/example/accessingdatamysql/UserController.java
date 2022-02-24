@@ -21,6 +21,11 @@ public class UserController {
     }
 
     @GetMapping(path = "/all")
+    @CrossOrigin // can be used at the class level as well.
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    // https://spring.io/blog/2015/06/08/cors-support-in-spring-framework
+    // default max-age is 5secs, OPTIONS response can be cached as well.
+    // Browsers also have a upper bound that is used when max-age is given a very high value.
     public List<User> getUsers() {
         return userService.getUsers();
     }
