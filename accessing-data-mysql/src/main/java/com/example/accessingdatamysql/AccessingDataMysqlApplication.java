@@ -22,9 +22,14 @@ import java.util.concurrent.CompletableFuture;
 // when / is hit, given that we have overridden the default / in any controller.
 
 // @EnableWebMvc annotation switches off all the things that Spring Boot does for you in WebMvcAutoConfiguration
+
 // EnableMongoRepositories is not needed, similar to how EnableJPARepositories was not needed.
+
 // JPA is relational, meant for relational databases (ORM). Spring Data JPA is parallel to Spring Data MongoDB.
 // spring-boot-starter-data-mongodb was needed. Not just spring-boot-mongodb.
+
+// TESTS: Need to comment out the autowired dependencies in this class for the @MockWebMvc tests to work. Not sure why ?
+
 @SpringBootApplication
 @EnableScheduling
 @EnableAsync
@@ -44,12 +49,12 @@ public class AccessingDataMysqlApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		userMongoRepository.save(new UserMongo("user_1", "user_1@abc.com"));
-		userMongoRepository.save(new UserMongo("user_2", "user_2@abc.com"));
+		userMongoRepository.save(new UserMongo("user_1", "user_1@abc.com"));
+//		userMongoRepository.save(new UserMongo("user_2", "user_2@abc.com"));
 		userMongoRepository.findAll().stream().forEach(user -> {
 			System.out.println(user);
 		});
-//		userMongoRepository.findByName("user_1").forEach(user -> System.out.println(user));
+		userMongoRepository.findByName("user_1").forEach(user -> System.out.println(user));
 //		userMongoRepository.findByEmail("user_2@abc.com").forEach(user -> System.out.println(user));
 
 		long start = System.currentTimeMillis();
